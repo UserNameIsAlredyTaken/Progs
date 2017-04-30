@@ -155,6 +155,7 @@ public class Main extends Application {
         AnchorPane.setRightAnchor(buttonSave, 280.0);
         */
         MainScreen.loadMainScreen();
+        System.out.println("sd");
     }
 
 
