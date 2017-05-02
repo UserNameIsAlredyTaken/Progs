@@ -1,26 +1,31 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import laba2.FoodResidus;
+import laba2.ReadXMLFile;
 import laba2.Whine;
 import laba2.XMLworker;
 
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
+
+import static javafx.scene.control.cell.ChoiceBoxTableCell.forTableColumn;
 
 
 /**
@@ -28,7 +33,7 @@ import java.util.Iterator;
  */
 public class MainScreen{
     private static ObservableList<FoodResidus> data;
-
+    private static Callback<TableColumn<FoodResidus, String>, TableCell<FoodResidus, String>> cellFactory;
     private static Stage primaryStage;
     private static AnchorPane mainPane;
     private static AnchorPane leftPane;
@@ -38,7 +43,7 @@ public class MainScreen{
     private static TableColumn<FoodResidus, Integer> columnWeight;
     private static Button buttonFiltr;
     private static Button buttonInfo;
-
+    private static LinkedList<FoodResidus> list;
     private static void drawAncor(){
         mainPane=new AnchorPane();
         leftPane=new AnchorPane();
@@ -68,7 +73,22 @@ public class MainScreen{
         table.setEditable(true);
         columnName=new TableColumn<>("Name");
         columnName.setPrefWidth(162.5);
-        columnName.setCellValueFactory(new PropertyValueFactory<FoodResidus, String>("name"));
+        columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        cellFactory = (TableColumn<FoodResidus, String> p) -> new EditingCell();
+        columnName.setCellFactory(TextFieldTableCell.<FoodResidus>forTableColumn());
+        columnName.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<FoodResidus, String>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<FoodResidus, String> t) {
+                        t.getTableView().getItems().get(
+                                t.getTablePosition().getRow()).setName(t.getNewValue());
+                        for(int i=0; i<data.size(); i++){
+                            System.out.println(data.get(i).getName()+data.get(i).getWeight());
+                        }
+                    }
+                }
+        );
+
         columnWeight=new TableColumn<>("Weight");
         columnWeight.setPrefWidth(160);
         columnWeight.setCellValueFactory(new PropertyValueFactory<FoodResidus, Integer>("weight"));
@@ -82,13 +102,12 @@ public class MainScreen{
 
     private static void initTable(){
         try {
-            data = FXCollections.observableArrayList();
-            HashSet<FoodResidus> set=XMLworker.getCollection("src\\sample.xml");
-            Iterator<FoodResidus> iterator=set.iterator();
-            while(iterator.hasNext()){
-                data.add(iterator.next());
-            }
+            list=new LinkedList<>();
+            new ReadXMLFile().fillList(list, "src\\sample.xml");
+            System.out.println(list.size());
+            data = FXCollections.observableArrayList(list);
             table.setItems(data);
+            table.setEditable(true);
         }
         catch (Exception e){
             System.out.println(e.getMessage());
