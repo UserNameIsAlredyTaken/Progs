@@ -3,16 +3,20 @@
  */
 package items;
 
+import Annotations.Column;
+import Annotations.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-
+@Table(name="FoodResidus2")
 @XmlAccessorType(XmlAccessType.FIELD)
 public  class FoodResidus implements Comparable {
+    @Column(name="Name",type="text",isPrKey = true)
     @XmlElement(name="name")
-    String name = "";
+    public String name = "";
+    @Column(name="Weight",type = "bigint",isPrKey = true)
     @XmlElement(name="weight")
-    int wheight = 0;
+    public int wheight = 0;
 
     private boolean highlightProperty=false;
     private boolean activehighlightProperty=false;

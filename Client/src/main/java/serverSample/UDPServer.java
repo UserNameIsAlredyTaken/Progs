@@ -1,13 +1,15 @@
 package serverSample;
 
+import ORM.CREATE_AND_INCERT;
+import ORM.INCERT;
 import io.dataBaseInteraction.DataBaseInteraction;
 import items.FoodResidus;
+import items.TestClassToInsert;
 import serealize.XMLworker;
 import javax.sql.rowset.JdbcRowSet;
 import javax.sql.rowset.RowSetFactory;
 import javax.sql.rowset.RowSetProvider;
 import java.net.*;
-import java.sql.Array;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -40,6 +42,27 @@ class UDPServer{
             }
             System.out.println(IPAddress.getHostName()+" was connected");
             if(receiveData[0]== DataBaseInteraction.INIT_TABLE){
+
+
+                /*//TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE
+                RowSetFactory testRsFactory = RowSetProvider.newFactory();
+                JdbcRowSet testJdbcRowSet = testRsFactory.createJdbcRowSet();
+                FoodResidus testFood = new FoodResidus();
+                testFood.name="testName";
+                testFood.wheight=111;
+                INCERT cr=new INCERT();
+                cr.insertRow(testJdbcRowSet,testFood,statement);
+                //TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE*/
+
+                //TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE
+                RowSetFactory testRsFactory2 = RowSetProvider.newFactory();
+                JdbcRowSet testJdbcRowSet2 = testRsFactory2.createJdbcRowSet();
+                TestClassToInsert testClassToInsert = new TestClassToInsert();
+                CREATE_AND_INCERT cai=new CREATE_AND_INCERT();
+                cai.create(testJdbcRowSet2,testClassToInsert,statement);
+                //TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE
+
+
                 RowSetFactory rsFactory = RowSetProvider.newFactory();
                 JdbcRowSet jdbcRowSet = rsFactory.createJdbcRowSet();
                 HashSet<FoodResidus> data = queries.loadAllRows(jdbcRowSet, NAME, dbc.getPooledConnection().getConnection());
