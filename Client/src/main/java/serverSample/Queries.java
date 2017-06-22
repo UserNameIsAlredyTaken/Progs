@@ -72,7 +72,7 @@ public class Queries {
                 statement.executeUpdate(sql);
                 count++;
                 connection.commit();
-            };
+            }
             System.out.println("Inset was commited: "+count);
         }catch(SQLException e){
             if (connection != null) {

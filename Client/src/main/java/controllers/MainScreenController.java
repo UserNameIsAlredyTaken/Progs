@@ -29,6 +29,8 @@ import screens.*;
 import screens.MainScreen;
 import java.io.File;
 import java.util.*;
+
+import static screens.MainScreen.setLocale;
 import static serealize.XMLworker.saveCollection;
 
 /**
@@ -46,7 +48,6 @@ public class MainScreenController {
                 MainScreen.getInstace().getColumnName().setVisible(false);
                 MainScreen.getInstace().getColumnName().setVisible(true);
                 SetFiltersWindow.getInstace().loadSetFiltersWindow(data, UnSeeingData, table);
-                System.out.println("Удаляем фильтры");
             }
         });
     }
@@ -55,7 +56,6 @@ public class MainScreenController {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                System.out.println("Выводим инфу");
                 InfoWindow.getInstace().loadInfoWindow(data);
             }
         });
@@ -65,7 +65,6 @@ public class MainScreenController {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                System.out.println("Удаляем элементы");
                 RemoveElWindow.getInstace().loadRemoveElWindow(data);
             }
         });
@@ -95,7 +94,6 @@ public class MainScreenController {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                System.out.println("Сохраняем");
                 SaveWindow.getInstace().loadSaveWindow(data);
             }
         });
@@ -309,7 +307,6 @@ public class MainScreenController {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                System.out.println("Очищаем");
                 ClearWindow.getInstace().loadClearWindow(data);
             }
         });
@@ -319,7 +316,6 @@ public class MainScreenController {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                System.out.println("Выводим инфу о приложении");
                 InfoApplicationWindow.getInstace().loadInfoScreen();
             }
         });
@@ -524,9 +520,9 @@ public class MainScreenController {
                     @Override
                     protected void updateItem( FoodResidus person, boolean b ) {
                         super.updateItem( person, b );
-                        MenuItem itemRemove=new MenuItem("Remove");
-                        MenuItem itemAdd=new MenuItem("Add");
-                        MenuItem itemAdd2=new MenuItem("Add");
+                        MenuItem itemRemove=new MenuItem("Удалить");
+                        MenuItem itemAdd=new MenuItem("Добавить");
+                        MenuItem itemAdd2=new MenuItem("Добавить");
                         ContextMenu menuRemove=new ContextMenu();
                         ContextMenu menuAdd=new ContextMenu();
                         menuRemove.getItems().addAll(itemRemove, itemAdd2);
@@ -712,5 +708,47 @@ public class MainScreenController {
             }
         });
     }
-
+    public static void languageMenu(Button button){
+        final ContextMenu contextMenu = new ContextMenu();
+        MenuItem russian = new MenuItem("russian");
+        MenuItem turkish = new MenuItem("Türk");
+        MenuItem albanian = new MenuItem("Shqiptar");
+        MenuItem english = new MenuItem("English");
+        contextMenu.getItems().addAll(russian, turkish, albanian, english);
+        button.setOnMousePressed(new EventHandler<MouseEvent>(){
+            public void handle(MouseEvent event) {
+                if (event.isPrimaryButtonDown()) {
+                    contextMenu.show(button, event.getScreenX(), event.getScreenY());
+                }
+            }
+        });
+        russian.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setLocale(new Locale("ru"));
+                System.out.println("russian");
+            }
+        });
+        turkish.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setLocale(new Locale("tu"));
+                System.out.println("turkish");
+            }
+        });
+        albanian.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setLocale(new Locale("al"));
+                System.out.println("albanian");
+            }
+        });
+        english.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setLocale(new Locale("en"));
+                System.out.println("english");
+            }
+        });
+    }
 }

@@ -59,13 +59,13 @@ public class SetFiltersWindow {
     }
 
     private void drawButton(){
-        SetFiltersOKbutton =new Button("Ok");
+        SetFiltersOKbutton =new Button("Хорошо");
         mainPane.getChildren().add(SetFiltersOKbutton);
         AnchorPane.setRightAnchor(SetFiltersOKbutton,110.0);
         AnchorPane.setLeftAnchor(SetFiltersOKbutton,220.0);
         AnchorPane.setBottomAnchor(SetFiltersOKbutton, 20.0);
 
-        SetFiltersCancelButton =new Button("Cancel");
+        SetFiltersCancelButton =new Button("Отмена");
         mainPane.getChildren().add(SetFiltersCancelButton);
         AnchorPane.setRightAnchor(SetFiltersCancelButton,220.0);
         AnchorPane.setLeftAnchor(SetFiltersCancelButton,110.0);

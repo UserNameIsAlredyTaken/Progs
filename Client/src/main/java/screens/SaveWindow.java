@@ -36,7 +36,6 @@ public class SaveWindow {
         setCSS();
         primaryStage=new Stage();
         primaryStage.setResizable(false);
-        //primaryStage.getIcons().add(new Image("file:icon.png"));//TODO определить иконку
         scene=new Scene(mainPane, 390, 150);
         primaryStage.setScene(scene);
         primaryStage.getScene().getStylesheets().add("css/Main.css");

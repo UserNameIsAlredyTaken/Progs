@@ -50,12 +50,12 @@ public class ClearWindow {
         AnchorPane.setRightAnchor(text,20.0);
     }
     private void drawButton(){
-        ClearOKbutton =new Button("Ok");
+        ClearOKbutton =new Button("Хорошо");
         mainPane.getChildren().add(ClearOKbutton);
         AnchorPane.setRightAnchor(ClearOKbutton,80.0);
         AnchorPane.setLeftAnchor(ClearOKbutton,220.0);
         AnchorPane.setBottomAnchor(ClearOKbutton, 32.0);
-        ClearCancelButton =new Button("Cancel");
+        ClearCancelButton =new Button("Отмена");
         mainPane.getChildren().add(ClearCancelButton);
         AnchorPane.setRightAnchor(ClearCancelButton,220.0);
         AnchorPane.setLeftAnchor(ClearCancelButton,80.0);

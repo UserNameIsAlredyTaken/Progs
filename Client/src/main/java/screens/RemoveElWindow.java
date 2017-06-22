@@ -52,12 +52,12 @@ public class RemoveElWindow {
         AnchorPane.setRightAnchor(textField,20.0);
     }
     private void drawButton(){
-        RemoveElOKbutton =new Button("Ok");
+        RemoveElOKbutton =new Button("Хорошо");
         mainPane.getChildren().add(RemoveElOKbutton);
         AnchorPane.setRightAnchor(RemoveElOKbutton,160.0);
         AnchorPane.setLeftAnchor(RemoveElOKbutton,270.0);
         AnchorPane.setBottomAnchor(RemoveElOKbutton, 32.0);
-        RemoveElCancelButton =new Button("Cancel");
+        RemoveElCancelButton =new Button("Отмена");
         mainPane.getChildren().add(RemoveElCancelButton);
         AnchorPane.setRightAnchor(RemoveElCancelButton,270.0);
         AnchorPane.setLeftAnchor(RemoveElCancelButton,160.0);

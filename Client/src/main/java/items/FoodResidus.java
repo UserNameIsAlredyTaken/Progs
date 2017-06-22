@@ -8,13 +8,13 @@ import Annotations.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-@Table(name="FoodResidus2")
+@Table(name="FoodResidus")
 @XmlAccessorType(XmlAccessType.FIELD)
 public  class FoodResidus implements Comparable {
     @Column(name="Name",type="text",isPrKey = true)
     @XmlElement(name="name")
     public String name = "";
-    @Column(name="Weight",type = "bigint",isPrKey = true)
+    @Column(name="Weight",type = "integer",isPrKey = true)
     @XmlElement(name="weight")
     public int wheight = 0;
 

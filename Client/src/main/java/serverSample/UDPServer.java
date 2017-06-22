@@ -1,7 +1,6 @@
 package serverSample;
 
-import ORM.CREATE_AND_INCERT;
-import ORM.INCERT;
+import ORM.*;
 import io.dataBaseInteraction.DataBaseInteraction;
 import items.FoodResidus;
 import items.TestClassToInsert;
@@ -13,6 +12,7 @@ import java.net.*;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 
 class UDPServer{
     private static final String URL = "jdbc:postgresql://127.0.0.1:5432/Musorka";
@@ -54,14 +54,54 @@ class UDPServer{
                 cr.insertRow(testJdbcRowSet,testFood,statement);
                 //TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE*/
 
-                //TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE
+                /*//TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE
                 RowSetFactory testRsFactory2 = RowSetProvider.newFactory();
                 JdbcRowSet testJdbcRowSet2 = testRsFactory2.createJdbcRowSet();
                 TestClassToInsert testClassToInsert = new TestClassToInsert();
-                CREATE_AND_INCERT cai=new CREATE_AND_INCERT();
+                CREATE_AND_INCERT<TestClassToInsert> cai=new CREATE_AND_INCERT();
                 cai.create(testJdbcRowSet2,testClassToInsert,statement);
-                //TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE
+                //TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE*/
 
+                /*//TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE
+                RowSetFactory testRsFactory3 = RowSetProvider.newFactory();
+                JdbcRowSet testJdbcRowSet3 = testRsFactory3.createJdbcRowSet();
+                TestClassToInsert testClassToInsert2 = new TestClassToInsert();
+                SELECT sel=new SELECT();
+                sel.selectRowsTheSameType(testJdbcRowSet3,testClassToInsert2,statement);
+                //TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE*/
+
+                /*//TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE
+                RowSetFactory testRsFactory4 = RowSetProvider.newFactory();
+                JdbcRowSet testJdbcRowSet4 = testRsFactory4.createJdbcRowSet();
+                FoodResidus oldTestFood = new FoodResidus();
+                oldTestFood.name="NeTestName";
+                oldTestFood.wheight=222;
+                FoodResidus newTestFood = new FoodResidus();
+                newTestFood.name="testName";
+                newTestFood.wheight=111;
+                UPDATE up = new UPDATE();
+                up.updateRow(testJdbcRowSet4,oldTestFood,newTestFood,statement);
+                //TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE*/
+
+                /*//TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE
+                RowSetFactory testRsFactory5 = RowSetProvider.newFactory();
+                JdbcRowSet testJdbcRowSet5 = testRsFactory5.createJdbcRowSet();
+                TestClassToInsert testClassToInsert2 = new TestClassToInsert();
+                FoodResidus oldTestFood = new FoodResidus();
+                oldTestFood.name="testName";
+                oldTestFood.wheight=111;
+                DELETE del = new DELETE();
+                del.deleteRow(testJdbcRowSet5,oldTestFood,statement);
+                //TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE*/
+
+                //TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE
+                RowSetFactory testRsFactory6 = RowSetProvider.newFactory();
+                JdbcRowSet testJdbcRowSet6 = testRsFactory6.createJdbcRowSet();
+                HashSet<FoodResidus> list = new HashSet<>();
+                SELECT sel = new SELECT();
+                list=sel.getAllObj(FoodResidus.class,statement);
+                System.out.println(list.size());
+                //TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE TEST CODE
 
                 RowSetFactory rsFactory = RowSetProvider.newFactory();
                 JdbcRowSet jdbcRowSet = rsFactory.createJdbcRowSet();

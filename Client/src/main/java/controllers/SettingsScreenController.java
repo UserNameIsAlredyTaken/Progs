@@ -21,7 +21,6 @@ public class SettingsScreenController {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("save");
                 SettingsWindow.getInstance().setFont_size(Integer.parseInt(SettingsWindow.getInstance().getFontSize().getText()));
                 SettingsWindow.getInstance().setColor(SettingsWindow.getInstance().getPicker().getValue());
                 if(!SettingsWindow.getInstance().getEditEnable().isSelected()){
@@ -41,7 +40,6 @@ public class SettingsScreenController {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("cancel");
                 SettingsWindow.getInstance().getFontSize().setText(String.valueOf(SettingsWindow.getInstance().getFont_size()));
                 SettingsWindow.getInstance().getPicker().setValue(SettingsWindow.getInstance().getColor());
                 if(SettingsWindow.getInstance().isEditable()){
@@ -69,8 +67,7 @@ public class SettingsScreenController {
     public static void buttonDefaultSettings(Button button){
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
-                System.out.println("default");
+            public void handle(ActionEvent event){
                 SettingsWindow.getInstance().getFontSize().setText(String.valueOf(SettingsWindow.getInstance().getFONT_SIZE()));
                 SettingsWindow.getInstance().getPicker().setValue(SettingsWindow.getInstance().getCOLR());
                 if(SettingsWindow.getInstance().isEDITABLE()){

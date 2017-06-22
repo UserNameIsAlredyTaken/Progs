@@ -67,7 +67,6 @@ public class SaveFiltersController {
             public void handle(ActionEvent actionEvent) {
                 Stage stage = (Stage) SetFiltersWindow.getInstace().getSetFiltersCancelButton().getScene().getWindow();
                 stage.close();
-                System.out.println("отмена");
             }
         });
     }

@@ -16,6 +16,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -25,13 +27,12 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import items.FoodResidus;
 import any.NumberTextfield;
-
 import java.util.*;
 
 /**
  * Created by vladp on 30.04.2017.
  */
-public class MainScreen{//TODO написать синглтон
+public class MainScreen{
     private BooleanProperty visiable=new SimpleBooleanProperty();
     private ArrayList<Integer> searched=new ArrayList<>();
     private int currentSearch=0;
@@ -73,7 +74,9 @@ public class MainScreen{//TODO написать синглтон
     private Button buttonBack;
     private Button buttonNext;
     private HBox searchContainer;
+    private Button buttonLanguage;
     private static MainScreen mainScreen;
+    private static Locale locale = new Locale("ru");
 
     private MainScreen(){}
     public static synchronized MainScreen getInstace(){
@@ -103,27 +106,28 @@ public class MainScreen{//TODO написать синглтон
         buttonRemoveEl.setId("button");
         buttonChoose.setId("button");
         buttonSave.setId("button");
-        buttonInfoApplication.setId("buttonInfoApplication");
-        buttonSettings.setId("buttonSettings");
-        buttonUndo.setId("buttonUndo");
-        buttonRedo.setId("buttonRedo");
-        buttonNameDown.setId("buttonRedo");
-        buttonNameUp.setId("buttonRedo");
-        buttonWeigthDown.setId("buttonRedo");
-        buttonWeigthUp.setId("buttonRedo");
-        buttonSearch.setId("buttonSearch");
-        buttonNext.setId("buttonNext");
-        buttonBack.setId("buttonBack");
+        buttonInfoApplication.setId("icon");
+        buttonSettings.setId("icon");
+        buttonUndo.setId("icon");
+        buttonRedo.setId("icon");
+        buttonNameDown.setId("icon");
+        buttonNameUp.setId("icon");
+        buttonWeigthDown.setId("icon");
+        buttonWeigthUp.setId("icon");
+        buttonSearch.setId("icon");
+        buttonNext.setId("icon");
+        buttonBack.setId("icon");
+        buttonLanguage.setId("icon");
     }
-
     private void drawTable(){
+        try{
         table=new TableView<>();
         table.setEditable(true);
-        columnName=new TableColumn<>("Name");
+        columnName=new TableColumn<>(ResourceBundle.getBundle("language/Locale",locale).getString("Имя"));
         columnName.setSortable(false);
         columnName.setPrefWidth(162.5);
         columnName.prefWidthProperty().bind(table.widthProperty().multiply(0.5));
-        columnWeight=new TableColumn<>("Weight");
+        columnWeight=new TableColumn<>("Вес");
         columnWeight.prefWidthProperty().bind(table.widthProperty().multiply(0.5));
         columnWeight.setSortable(false);
         table.getColumns().addAll(columnName,columnWeight);
@@ -133,8 +137,7 @@ public class MainScreen{//TODO написать синглтон
         AnchorPane.setRightAnchor(table, 25.0);
         AnchorPane.setLeftAnchor(table, 25.0);
         leftPane.getChildren().add(table);
-    }
-
+    }catch (Exception e){e.printStackTrace();}}
     private void initTable(){
         data=FXCollections.observableArrayList();
         DBIInit db=new DBIInit("init", data);
@@ -241,7 +244,7 @@ public class MainScreen{//TODO написать синглтон
         AnchorPane.setTopAnchor(topLeftCornerContainer, 10.0);
         AnchorPane.setRightAnchor(topLeftCornerContainer, 100.0);
     }
-    private void drawSortButtons(){//TODO сменить публик на прайват
+    private void drawSortButtons(){
         buttonNameDown=new Button();
         buttonNameDown.setGraphic(new ImageView(new Image("/icons/down.png", 16, 16, false, false)));
         leftPane.getChildren().add(buttonNameDown);
@@ -265,6 +268,15 @@ public class MainScreen{//TODO написать синглтон
         AnchorPane.setTopAnchor(buttonNameUp, 15.0);
         AnchorPane.setLeftAnchor(buttonNameUp, 4.0);
     }
+    private void drawLanguageIcon(){
+        buttonLanguage = new Button();
+        buttonLanguage.setGraphic(new ImageView(new Image("/icons/language.png", 32, 32, false, false)));
+        rightPane.getChildren().add(buttonLanguage);
+        AnchorPane.setBottomAnchor(buttonLanguage, 15.0);
+        AnchorPane.setRightAnchor(buttonLanguage, 25.0);
+
+
+    }
     private void drawItems(){
         drawLeftButtonsContainer();
         drawRightButtonsContainer();
@@ -273,6 +285,7 @@ public class MainScreen{//TODO написать синглтон
         drawSortButtons();
         drawTopLeftCornerContainer();
         drawSearchContainer();
+        drawLanguageIcon();
     }
 
     private void setControllers(){
@@ -300,6 +313,11 @@ public class MainScreen{//TODO написать синглтон
         MainScreenController.buttonBack(buttonBack);
         MainScreenController.buttonNext(buttonNext);
         MainScreenController.addListenersToTextControllers(weightSearch,nameSearch);
+        MainScreenController.languageMenu(buttonLanguage);
+    }
+
+    public static void setLocale(Locale locale){
+        MainScreen.locale=locale;
     }
 
     public void loadMainScreen(){

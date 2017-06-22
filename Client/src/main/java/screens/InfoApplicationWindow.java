@@ -17,7 +17,7 @@ public class InfoApplicationWindow {
     private AnchorPane mainPane;
     private TextArea text;
     private Button buttonOkInfo;
-    private String teext="Auto Complet";
+    private String teext;
     private static InfoApplicationWindow infoApplicationWindow;
 
     private InfoApplicationWindow(){}
@@ -34,16 +34,15 @@ public class InfoApplicationWindow {
 
     private void drawItems(){
         text=new TextArea();
-        text.setText(teext);
         mainPane.getChildren().add(text);
         AnchorPane.setTopAnchor(text, 20.0);
         AnchorPane.setLeftAnchor(text, 20.0);
         AnchorPane.setRightAnchor(text, 20.0);
         AnchorPane.setBottomAnchor(text, 80.0);
-        buttonOkInfo=new Button("Ok");
+        buttonOkInfo=new Button("Хорошо");
         mainPane.getChildren().add(buttonOkInfo);
-        AnchorPane.setRightAnchor(buttonOkInfo,270.0);
-        AnchorPane.setLeftAnchor(buttonOkInfo,270.0);
+        AnchorPane.setRightAnchor(buttonOkInfo,260.0);
+        AnchorPane.setLeftAnchor(buttonOkInfo,260.0);
         AnchorPane.setBottomAnchor(buttonOkInfo, 32.0);
     }
 

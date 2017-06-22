@@ -48,7 +48,7 @@ public class InfoWindow {
 
     }
     private void drawButton(){
-        InfoOKbutton =new Button("Ok");
+        InfoOKbutton =new Button("Хорошо");
         mainPane.getChildren().add(InfoOKbutton);
         AnchorPane.setRightAnchor(InfoOKbutton,220.0);
         AnchorPane.setLeftAnchor(InfoOKbutton,220.0);

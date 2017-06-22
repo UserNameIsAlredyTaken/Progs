@@ -43,7 +43,7 @@ public class ErrorWindow {
         AnchorPane.setTopAnchor(hBox, 40.0);
         AnchorPane.setLeftAnchor(hBox, 20.0);
         AnchorPane.setRightAnchor(hBox,20.0);
-        buttonOkInfo=new Button("Ok");
+        buttonOkInfo=new Button("Хорошо");
         mainPane.getChildren().add(buttonOkInfo);
         mainPane.getChildren().add(hBox);
         AnchorPane.setRightAnchor(buttonOkInfo,270.0);

@@ -76,7 +76,6 @@ public class TableStatements {
         else {
             Image image2=new Image("/icons/undoNew.png", 32, 32, false, false);
             MainScreen.getInstace().getButtonUndo().setGraphic(new ImageView(image2));
-            System.out.println("Nelza");
         }
     }
     public static void redo(){
