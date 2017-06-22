@@ -5,7 +5,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import controllers.MainScreenController;
 
 /**
  * Created by vladp on 07.05.2017.
@@ -39,7 +38,7 @@ public class InfoApplicationWindow {
         AnchorPane.setLeftAnchor(text, 20.0);
         AnchorPane.setRightAnchor(text, 20.0);
         AnchorPane.setBottomAnchor(text, 80.0);
-        buttonOkInfo=new Button("Хорошо");
+        buttonOkInfo=new Button("Ok");
         mainPane.getChildren().add(buttonOkInfo);
         AnchorPane.setRightAnchor(buttonOkInfo,260.0);
         AnchorPane.setLeftAnchor(buttonOkInfo,260.0);

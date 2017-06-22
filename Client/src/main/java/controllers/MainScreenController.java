@@ -29,12 +29,16 @@ import screens.*;
 import screens.MainScreen;
 import java.io.File;
 import java.util.*;
+import java.util.stream.Collectors;
+
 import static serealize.XMLworker.saveCollection;
 
 /**
  * Created by vladp on 30.04.2017.
  */
 public class MainScreenController {
+    public static Locale CurrentLocale = new Locale("ru");
+
     public static void buttonFiltr(Button button, ObservableList<FoodResidus> data,ObservableList UnSeeingData, TableView<FoodResidus> table){
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -140,19 +144,23 @@ public class MainScreenController {
                     MainScreen.getInstace().setCurrentSearch(MainScreen.getInstace().getCurrentSearch()-1);
                     MainScreen.getInstace().getTable().scrollTo(MainScreen.getInstace().getSearched().get(MainScreen.getInstace().getCurrentSearch()));
                     MainScreen.getInstace().getTable().getItems().get(MainScreen.getInstace().getSearched().get(MainScreen.getInstace().getCurrentSearch())).setActivehighlightProperty(true);
-                    MainScreen.getInstace().getCount().setText((MainScreen.getInstace().getCurrentSearch()+1)+" из "+MainScreen.getInstace().getSearched().size());
+                    setSearchText();
                 }
                 else {
                     MainScreen.getInstace().getTable().getItems().get(MainScreen.getInstace().getSearched().get(MainScreen.getInstace().getCurrentSearch())).setActivehighlightProperty(false);
                     MainScreen.getInstace().setCurrentSearch(MainScreen.getInstace().getSearched().size()-1);
                     MainScreen.getInstace().getTable().scrollTo(MainScreen.getInstace().getSearched().get(MainScreen.getInstace().getSearched().size()-1));
-                    MainScreen.getInstace().getCount().setText((MainScreen.getInstace().getCurrentSearch()+1) + " из " + MainScreen.getInstace().getSearched().size());
+                    setSearchText();
                     MainScreen.getInstace().getTable().getItems().get(MainScreen.getInstace().getSearched().get(MainScreen.getInstace().getCurrentSearch())).setActivehighlightProperty(true);
                 }
                 MainScreen.getInstace().getColumnName().setVisible(false);
                 MainScreen.getInstace().getColumnName().setVisible(true);
             }
         });
+    }
+
+    private static void setSearchText() {
+        MainScreen.getInstace().getCount().setText((MainScreen.getInstace().getCurrentSearch()+1)+ResourceBundle.getBundle("Locale",CurrentLocale).getString("From")+MainScreen.getInstace().getSearched().size());
     }
 
     public static void buttonNext(Button button){
@@ -384,19 +392,19 @@ public class MainScreenController {
                                     t.getTableView().getItems().get(t.getTablePosition().getRow()).getWeight());
                             System.out.println(t.getOldValue());
                             System.out.println(t.getNewValue());
-                            if(!data.contains(new Whine("Безыменный",t.getTableView().getItems().get(t.getTablePosition().getRow()).getWeight()))){
+                            if(!data.contains(new Whine("Nameless",t.getTableView().getItems().get(t.getTablePosition().getRow()).getWeight()))){
                                 DBIChange dbiChange=new DBIChange("change", new Whine(t.getOldValue(), t.getTableView().getItems().get(
                                         t.getTablePosition().getRow()).getWeight()),
-                                        new Whine("Безыменный", t.getTableView().getItems().get(
+                                        new Whine("Nameless", t.getTableView().getItems().get(
                                                 t.getTablePosition().getRow()).getWeight()));
                                 dbiChange.start();
                                 t.getTableView().getItems().get(
-                                        t.getTablePosition().getRow()).setName("Безыменный");
+                                        t.getTablePosition().getRow()).setName("Nameless");
                                 Whine newTemp=new Whine(t.getTableView().getItems().get(t.getTablePosition().getRow()).getName(),
                                         t.getTableView().getItems().get(t.getTablePosition().getRow()).getWeight());
                                 EditChange editChange=new EditChange(newTemp, oldTemp, t.getTablePosition().getRow());
                                 TableStatements.addChange(editChange);
-                                if(MainScreen.getInstace().getNameSearch().getText().trim().equals("Безыменный")) data.get(t.getTablePosition().getRow()).setHighlightProperty(true);
+                                if(MainScreen.getInstace().getNameSearch().getText().trim().equals("Nameless")) data.get(t.getTablePosition().getRow()).setHighlightProperty(true);
                                 else {
                                     data.get(t.getTablePosition().getRow()).setHighlightProperty(false);
                                     data.get(t.getTablePosition().getRow()).setActivehighlightProperty(false);
@@ -519,8 +527,8 @@ public class MainScreenController {
                     protected void updateItem( FoodResidus person, boolean b ) {
                         super.updateItem( person, b );
                         MenuItem itemRemove=new MenuItem("Удалить");
-                        MenuItem itemAdd=new MenuItem("Добавить");
-                        MenuItem itemAdd2=new MenuItem("Добавить");
+                        MenuItem itemAdd=new MenuItem("Add");
+                        MenuItem itemAdd2=new MenuItem("Add");
                         ContextMenu menuRemove=new ContextMenu();
                         ContextMenu menuAdd=new ContextMenu();
                         menuRemove.getItems().addAll(itemRemove, itemAdd2);
@@ -586,7 +594,6 @@ public class MainScreenController {
                                     dbiAdd.start();
                                     AddChange addChange=new AddChange(new Whine("NULL", 0));
                                     TableStatements.addChange(addChange);
-                                    TableStatements.addChange(addChange);
                                     checkHighlight();
                                 }else{
                                     Platform.runLater(new Runnable() {
@@ -625,10 +632,10 @@ public class MainScreenController {
             @Override
             public void handle(MouseEvent click) {
                 if (click.getButton() == MouseButton.SECONDARY && data.isEmpty()) {
-                    AddChange addChange=new AddChange(new Whine("Безыменный", 0));
+                    AddChange addChange=new AddChange(new Whine("Nameless", 0));
                     TableStatements.addChange(addChange);
-                    data.add(new Whine("Безыменный", 0));
-                    DBIAdd dbiAdd=new DBIAdd("add", new Whine("Безыменный", 0));
+                    data.add(new Whine("Nameless", 0));
+                    DBIAdd dbiAdd=new DBIAdd("add", new Whine("Nameless", 0));
                     dbiAdd.start();
                 }
             }
@@ -660,7 +667,11 @@ public class MainScreenController {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("nameUp");
-                Collections.sort(data);
+                List<FoodResidus> temp=data.stream().sorted().collect(Collectors.toList());
+                data.clear();
+                for(int i=0; i<temp.size(); i++){
+                    data.add(temp.get(i));
+                }
                 TableStatements.getChanges().clear();
                 TableStatements.setCurrentStatement(-1);
             }
@@ -674,7 +685,11 @@ public class MainScreenController {
             public void handle(ActionEvent event) {
                 System.out.println("namedown");
                 TableStatements.redo();
-                Collections.sort(data, Collections.reverseOrder());
+                List<FoodResidus> temp=data.stream().sorted((o1, o2)->-Integer.compare(o1.getWeight(), o2.getWeight())).collect(Collectors.toList());
+                data.clear();
+                for(int i=0; i<temp.size(); i++){
+                    data.add(temp.get(i));
+                }
                 TableStatements.getChanges().clear();
                 TableStatements.setCurrentStatement(-1);
             }
@@ -687,7 +702,11 @@ public class MainScreenController {
             public void handle(ActionEvent event) {
                 System.out.println("weigthup");
                 TableStatements.redo();
-                Collections.sort(data, new SortedByName());
+                List<FoodResidus> temp=data.stream().sorted((o1, o2)->o1.getName().compareTo(o2.getName())).collect(Collectors.toList());
+                data.clear();
+                for(int i=0; i<temp.size(); i++){
+                    data.add(temp.get(i));
+                };
                 TableStatements.getChanges().clear();
                 TableStatements.setCurrentStatement(-1);
             }
@@ -700,7 +719,11 @@ public class MainScreenController {
             public void handle(ActionEvent event) {
                 System.out.println("weigthdown");
                 TableStatements.redo();
-                Collections.sort(data, Collections.reverseOrder(new SortedByName()));
+                List<FoodResidus> temp=data.stream().sorted((o1, o2)->-o1.getName().compareTo(o2.getName())).collect(Collectors.toList());
+                data.clear();
+                for(int i=0; i<temp.size(); i++){
+                    data.add(temp.get(i));
+                }
                 TableStatements.getChanges().clear();
                 TableStatements.setCurrentStatement(-1);
             }
@@ -723,30 +746,40 @@ public class MainScreenController {
         russian.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                mainScreen.setLocale(new Locale("ru"));
+                setLocale(mainScreen,new Locale("ru"));
                 System.out.println("russian");
             }
         });
         turkish.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                mainScreen.setLocale(new Locale("tu"));
+                setLocale(mainScreen,new Locale("tr"));
                 System.out.println("turkish");
             }
         });
         albanian.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                mainScreen.setLocale(new Locale("al"));
+                setLocale(mainScreen,new Locale("sq"));
                 System.out.println("albanian");
             }
         });
         english.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                mainScreen.setLocale(new Locale("en"));
+                setLocale(mainScreen,new Locale("en"));
                 System.out.println("english");
             }
         });
+    }
+
+    private static void setLocale(MainScreen mainScreen,Locale locale) {
+        CurrentLocale = locale;
+        mainScreen.setLocale(locale);
+        InfoWindow.getInstace().setLocale(locale);
+        SetFiltersWindow.getInstace().setLocale(locale);
+        RemoveElWindow.getInstace().setLocale(locale);
+        SaveWindow.getInstace().setLocale(locale);
+        setSearchText();
     }
 }

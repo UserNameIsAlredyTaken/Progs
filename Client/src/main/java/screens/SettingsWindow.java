@@ -75,7 +75,7 @@ public class SettingsWindow {
         editDisable.setToggleGroup(group);
         editDisable.setText("Нет");
         editEnable.setToggleGroup(group);
-        editEnable.setText("Да");
+        editEnable.setText("Yes");
         if(editable) editEnable.setSelected(true);
         else editDisable.setSelected(true);
         textEdit=new Text("Редактирование таблицы: ");
@@ -97,8 +97,8 @@ public class SettingsWindow {
         AnchorPane.setTopAnchor(settingFontSize, 98.0);
         AnchorPane.setLeftAnchor(settingFontSize, 10.0);
         AnchorPane.setRightAnchor(settingFontSize, 10.0);
-        buttonSave=new Button("Сохранить");
-        buttonCancel=new Button("Отменить");
+        buttonSave=new Button("Save");
+        buttonCancel=new Button("Cancel.");
         buttonDefaultSettings=new Button("По умолчанию");
         buttons=new HBox(buttonSave, buttonCancel);
         buttons.setAlignment(Pos.CENTER);

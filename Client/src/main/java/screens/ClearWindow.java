@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import controllers.MainScreenController;
 
 /**
  * Created by danil on 05.05.2017.
@@ -50,12 +49,12 @@ public class ClearWindow {
         AnchorPane.setRightAnchor(text,20.0);
     }
     private void drawButton(){
-        ClearOKbutton =new Button("Хорошо");
+        ClearOKbutton =new Button("Ok");
         mainPane.getChildren().add(ClearOKbutton);
         AnchorPane.setRightAnchor(ClearOKbutton,80.0);
         AnchorPane.setLeftAnchor(ClearOKbutton,220.0);
         AnchorPane.setBottomAnchor(ClearOKbutton, 32.0);
-        ClearCancelButton =new Button("Отмена");
+        ClearCancelButton =new Button("Cancel");
         mainPane.getChildren().add(ClearCancelButton);
         AnchorPane.setRightAnchor(ClearCancelButton,220.0);
         AnchorPane.setLeftAnchor(ClearCancelButton,80.0);

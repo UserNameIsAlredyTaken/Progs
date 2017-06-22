@@ -8,7 +8,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import controllers.MainScreenController;
 
 /**
  * Created by vladp on 15.05.2017.
@@ -43,7 +42,7 @@ public class ErrorWindow {
         AnchorPane.setTopAnchor(hBox, 40.0);
         AnchorPane.setLeftAnchor(hBox, 20.0);
         AnchorPane.setRightAnchor(hBox,20.0);
-        buttonOkInfo=new Button("Хорошо");
+        buttonOkInfo=new Button("Ok");
         mainPane.getChildren().add(buttonOkInfo);
         mainPane.getChildren().add(hBox);
         AnchorPane.setRightAnchor(buttonOkInfo,270.0);

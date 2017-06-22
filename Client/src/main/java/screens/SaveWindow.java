@@ -1,5 +1,6 @@
 package screens;
 
+import any.Utility;
 import controllers.MainScreenController;
 import controllers.SaveController;
 import javafx.collections.ObservableList;
@@ -8,6 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * Created by danil on 07.05.2017.
@@ -19,6 +23,8 @@ public class SaveWindow {
     private Button SaveDefaultButton;
     private Button SaveChooseButton;
     private static SaveWindow saveWindow;
+    private ResourceBundle resourceBundle;
+    private boolean wasLoaded = false;
 
     private SaveWindow(){}
     public static synchronized SaveWindow getInstace(){
@@ -40,10 +46,12 @@ public class SaveWindow {
         primaryStage.setScene(scene);
         primaryStage.getScene().getStylesheets().add("css/Main.css");
         primaryStage.show();
+        wasLoaded = true;
+        setLocale(MainScreenController.CurrentLocale);
     }
     private void drawPanes(){
         mainPane=new AnchorPane();
-        text = new Text("Выберете файл или сохраните по умолчанию?");
+        text = new Text();
         mainPane.getChildren().add(text);
         AnchorPane.setTopAnchor(text,20.0);
         AnchorPane.setLeftAnchor(text,20.0);
@@ -68,6 +76,15 @@ public class SaveWindow {
     private void setControllers(ObservableList data){
         SaveController.SaveDefaultButton(SaveDefaultButton,data);
         SaveController.SaveChooseButton(SaveChooseButton,data);
+    }
+    public void setLocale(Locale locale){
+        if(!wasLoaded){
+            return;
+        }
+        resourceBundle= ResourceBundle.getBundle("Locale",locale);
+        text.setText(Utility.GetLocalizedString(resourceBundle.getString("ChooseFileOrSaveByDefault")));
+        SaveDefaultButton.setText(Utility.GetLocalizedString(resourceBundle.getString("Default")));
+        SaveChooseButton.setText(Utility.GetLocalizedString(resourceBundle.getString("Choose")));
     }
 
     public Button getSaveDefaultButton() {

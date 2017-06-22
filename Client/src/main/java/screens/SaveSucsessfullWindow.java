@@ -1,6 +1,5 @@
 package screens;
 
-import controllers.MainScreenController;
 import controllers.SaveSucsessfullController;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -36,14 +35,14 @@ public class SaveSucsessfullWindow {
     }
 
     private void drawItems(){
-        text=new Text("Сохранено.");
+        text=new Text("Saved");
         hBox=new HBox();
         hBox.getChildren().add(text);
         hBox.setAlignment(Pos.CENTER);
         AnchorPane.setTopAnchor(hBox, 40.0);
         AnchorPane.setLeftAnchor(hBox, 20.0);
         AnchorPane.setRightAnchor(hBox,20.0);
-        buttonOkInfo=new Button("Хорошо");
+        buttonOkInfo=new Button("Ok");
         mainPane.getChildren().add(buttonOkInfo);
         mainPane.getChildren().add(hBox);
         AnchorPane.setRightAnchor(buttonOkInfo,270.0);

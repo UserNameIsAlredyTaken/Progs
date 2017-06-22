@@ -1,8 +1,8 @@
 package screens;
 
+import any.Utility;
 import controllers.MainScreenController;
 import io.dataBaseInteraction.DBIInit;
-import io.dataBaseInteraction.DataBaseInteraction;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -16,8 +16,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -27,6 +25,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import items.FoodResidus;
 import any.NumberTextfield;
+
 import java.util.*;
 
 /**
@@ -76,7 +75,7 @@ public class MainScreen{
     private HBox searchContainer;
     private Button buttonLanguage;
     private static MainScreen mainScreen;
-    private static Locale locale = new Locale("ru");
+    ResourceBundle resourceBundle;
 
     private MainScreen(){}
     public static synchronized MainScreen getInstace(){
@@ -123,11 +122,11 @@ public class MainScreen{
         try{
         table=new TableView<>();
         table.setEditable(true);
-        columnName=new TableColumn<>("Имя");
+        columnName=new TableColumn<>();
         columnName.setSortable(false);
         columnName.setPrefWidth(162.5);
         columnName.prefWidthProperty().bind(table.widthProperty().multiply(0.5));
-        columnWeight=new TableColumn<>("Вес");
+        columnWeight=new TableColumn<>();
         columnWeight.prefWidthProperty().bind(table.widthProperty().multiply(0.5));
         columnWeight.setSortable(false);
         table.getColumns().addAll(columnName,columnWeight);
@@ -150,7 +149,7 @@ public class MainScreen{
 
     private void drawLeftButtonsContainer(){
         leftButtonsContainer = new HBox();
-        buttonFilter = new Button("Фильтровать");
+        buttonFilter = new Button("Filter");
         leftButtonsContainer.setSpacing(40);
         leftButtonsContainer.setAlignment(Pos.CENTER);
         leftButtonsContainer.getChildren().add(buttonFilter);
@@ -161,11 +160,11 @@ public class MainScreen{
     }
     private void drawRightButtonsContainer(){
         rightButtonsContainer =new VBox();
-        buttonInfo=new Button("Информация");
-        buttonClear=new Button("Очистить");
+        buttonInfo=new Button("Information");
+        buttonClear=new Button("Clear");
         buttonRemoveEl=new Button("Удалить элементы");
         buttonChoose=new Button("Выбрать файлы");
-        buttonSave=new Button("Сохранить");
+        buttonSave=new Button("Save");
         rightButtonsContainer.setAlignment(Pos.CENTER_LEFT);
         rightButtonsContainer.setSpacing(30);
         rightButtonsContainer.getChildren().add(buttonInfo);
@@ -320,17 +319,19 @@ public class MainScreen{
     }
 
     public void setLocale(Locale locale){
-        MainScreen.locale=locale;
-        columnName.setText(ResourceBundle.getBundle("Locale",locale).getString("Имя"));
-        columnWeight.setText(ResourceBundle.getBundle("Locale",locale).getString("Вес"));
-        buttonFilter.setText(ResourceBundle.getBundle("Locale",locale).getString("Фильтровать"));
-        buttonInfo.setText(ResourceBundle.getBundle("Locale",locale).getString("Информация"));
-        buttonClear.setText(ResourceBundle.getBundle("Locale",locale).getString("Очистить"));
-        buttonSave.setText(ResourceBundle.getBundle("Locale",locale).getString("Сохранить"));
-        primaryStage.setTitle(ResourceBundle.getBundle("Locale",locale).getString("Остаткиеды"));
-        buttonChoose.setText(ResourceBundle.getBundle("Locale",locale).getString("Выбратьфайлы"));
-        buttonRemoveEl.setText(ResourceBundle.getBundle("Locale",locale).getString("Удалитьэлементы"));
+        resourceBundle=ResourceBundle.getBundle("Locale",locale);
+        columnName.setText(Utility.GetLocalizedString(resourceBundle.getString("Name")));
+        columnWeight.setText(Utility.GetLocalizedString(resourceBundle.getString("Weight")));
+        buttonFilter.setText(Utility.GetLocalizedString(resourceBundle.getString("Filter")));
+        buttonInfo.setText(Utility.GetLocalizedString(resourceBundle.getString("Information")));
+        buttonClear.setText(Utility.GetLocalizedString(resourceBundle.getString("Clear")));
+        buttonSave.setText(Utility.GetLocalizedString(resourceBundle.getString("Save")));
+        primaryStage.setTitle(Utility.GetLocalizedString(resourceBundle.getString("FoodResidus")));
+        buttonChoose.setText(Utility.GetLocalizedString(resourceBundle.getString("ChooseFiles")));
+        buttonRemoveEl.setText(Utility.GetLocalizedString(resourceBundle.getString("RemoveElements")));
     }
+
+
 
     public void loadMainScreen(){
         try {
@@ -344,7 +345,6 @@ public class MainScreen{
             primaryStage.setMinHeight(550.0);
             primaryStage.setMinWidth(950.0);
             primaryStage.getIcons().add(new Image("/icons/edit.png"));
-            primaryStage.setTitle("Остатки еды");
             scene = new Scene(mainPane, 950, 550);
             primaryStage.setScene(scene);
             leftPane.setMinWidth(300.0);
@@ -358,6 +358,7 @@ public class MainScreen{
                     System.exit(0);
                 }
             });
+            setLocale(MainScreenController.CurrentLocale);
         }
         catch (Exception e){}
     }
