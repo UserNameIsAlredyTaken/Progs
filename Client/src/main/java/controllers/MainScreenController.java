@@ -29,8 +29,6 @@ import screens.*;
 import screens.MainScreen;
 import java.io.File;
 import java.util.*;
-
-import static screens.MainScreen.setLocale;
 import static serealize.XMLworker.saveCollection;
 
 /**
@@ -708,7 +706,7 @@ public class MainScreenController {
             }
         });
     }
-    public static void languageMenu(Button button){
+    public static void languageMenu(Button button, MainScreen mainScreen){
         final ContextMenu contextMenu = new ContextMenu();
         MenuItem russian = new MenuItem("russian");
         MenuItem turkish = new MenuItem("Türk");
@@ -725,28 +723,28 @@ public class MainScreenController {
         russian.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                setLocale(new Locale("ru"));
+                mainScreen.setLocale(new Locale("ru"));
                 System.out.println("russian");
             }
         });
         turkish.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                setLocale(new Locale("tu"));
+                mainScreen.setLocale(new Locale("tu"));
                 System.out.println("turkish");
             }
         });
         albanian.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                setLocale(new Locale("al"));
+                mainScreen.setLocale(new Locale("al"));
                 System.out.println("albanian");
             }
         });
         english.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                setLocale(new Locale("en"));
+                mainScreen.setLocale(new Locale("en"));
                 System.out.println("english");
             }
         });

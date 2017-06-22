@@ -123,7 +123,7 @@ public class MainScreen{
         try{
         table=new TableView<>();
         table.setEditable(true);
-        columnName=new TableColumn<>(ResourceBundle.getBundle("language/Locale",locale).getString("Имя"));
+        columnName=new TableColumn<>("Имя");
         columnName.setSortable(false);
         columnName.setPrefWidth(162.5);
         columnName.prefWidthProperty().bind(table.widthProperty().multiply(0.5));
@@ -137,7 +137,10 @@ public class MainScreen{
         AnchorPane.setRightAnchor(table, 25.0);
         AnchorPane.setLeftAnchor(table, 25.0);
         leftPane.getChildren().add(table);
-    }catch (Exception e){e.printStackTrace();}}
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     private void initTable(){
         data=FXCollections.observableArrayList();
         DBIInit db=new DBIInit("init", data);
@@ -313,11 +316,20 @@ public class MainScreen{
         MainScreenController.buttonBack(buttonBack);
         MainScreenController.buttonNext(buttonNext);
         MainScreenController.addListenersToTextControllers(weightSearch,nameSearch);
-        MainScreenController.languageMenu(buttonLanguage);
+        MainScreenController.languageMenu(buttonLanguage,this);
     }
 
-    public static void setLocale(Locale locale){
+    public void setLocale(Locale locale){
         MainScreen.locale=locale;
+        columnName.setText(ResourceBundle.getBundle("Locale",locale).getString("Имя"));
+        columnWeight.setText(ResourceBundle.getBundle("Locale",locale).getString("Вес"));
+        buttonFilter.setText(ResourceBundle.getBundle("Locale",locale).getString("Фильтровать"));
+        buttonInfo.setText(ResourceBundle.getBundle("Locale",locale).getString("Информация"));
+        buttonClear.setText(ResourceBundle.getBundle("Locale",locale).getString("Очистить"));
+        buttonSave.setText(ResourceBundle.getBundle("Locale",locale).getString("Сохранить"));
+        primaryStage.setTitle(ResourceBundle.getBundle("Locale",locale).getString("Остаткиеды"));
+        buttonChoose.setText(ResourceBundle.getBundle("Locale",locale).getString("Выбратьфайлы"));
+        buttonRemoveEl.setText(ResourceBundle.getBundle("Locale",locale).getString("Удалитьэлементы"));
     }
 
     public void loadMainScreen(){
