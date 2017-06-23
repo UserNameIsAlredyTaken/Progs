@@ -26,6 +26,7 @@ import javafx.stage.WindowEvent;
 import items.FoodResidus;
 import any.NumberTextfield;
 
+import java.time.OffsetDateTime;
 import java.util.*;
 
 /**
@@ -50,6 +51,7 @@ public class MainScreen{
     private TableView<FoodResidus> table;
     private TableColumn<FoodResidus, String> columnName;
     private TableColumn<FoodResidus, Integer> columnWeight;
+    private TableColumn<FoodResidus, Date> columnDate;
     private HBox ListViewContainer;
     private ListView listView;
     private Button buttonFilter;
@@ -125,11 +127,14 @@ public class MainScreen{
         columnName=new TableColumn<>();
         columnName.setSortable(false);
         columnName.setPrefWidth(162.5);
-        columnName.prefWidthProperty().bind(table.widthProperty().multiply(0.5));
+        columnName.prefWidthProperty().bind(table.widthProperty().multiply(0.333));
         columnWeight=new TableColumn<>();
-        columnWeight.prefWidthProperty().bind(table.widthProperty().multiply(0.5));
+        columnWeight.prefWidthProperty().bind(table.widthProperty().multiply(0.333));
         columnWeight.setSortable(false);
-        table.getColumns().addAll(columnName,columnWeight);
+        columnDate=new TableColumn<>();
+        columnDate.setSortable(false);
+        columnDate.prefWidthProperty().bind(table.widthProperty().multiply(0.333));
+        table.getColumns().addAll(columnName,columnWeight,columnDate);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         AnchorPane.setTopAnchor(table, 20.0);
         AnchorPane.setBottomAnchor(table, 100.0);
@@ -301,6 +306,7 @@ public class MainScreen{
         MainScreenController.buttonSave(buttonSave, data);
         MainScreenController.editName(columnName, data);
         MainScreenController.editWeight(columnWeight, data);
+        MainScreenController.columnDate(columnDate, data);
         MainScreenController.tableViewRightClick(table);
         MainScreenController.buttonInfoApplication(buttonInfoApplication);
         MainScreenController.buttonSettings(buttonSettings);
@@ -322,6 +328,7 @@ public class MainScreen{
         resourceBundle=ResourceBundle.getBundle("Locale",locale);
         columnName.setText(Utility.GetLocalizedString(resourceBundle.getString("Name")));
         columnWeight.setText(Utility.GetLocalizedString(resourceBundle.getString("Weight")));
+        columnDate.setText(Utility.GetLocalizedString(resourceBundle.getString("DateOfCreation")));
         buttonFilter.setText(Utility.GetLocalizedString(resourceBundle.getString("Filter")));
         buttonInfo.setText(Utility.GetLocalizedString(resourceBundle.getString("Information")));
         buttonClear.setText(Utility.GetLocalizedString(resourceBundle.getString("Clear")));

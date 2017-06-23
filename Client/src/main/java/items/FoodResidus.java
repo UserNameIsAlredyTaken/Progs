@@ -8,6 +8,9 @@ import Annotations.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import java.time.OffsetDateTime;
+import java.util.Date;
+
 @Table(name="FoodResidus")
 @XmlAccessorType(XmlAccessType.FIELD)
 public  class FoodResidus implements Comparable {
@@ -17,6 +20,11 @@ public  class FoodResidus implements Comparable {
     @Column(name="Weight",type = "integer",isPrKey = true)
     @XmlElement(name="weight")
     public int wheight = 0;
+    @Column(name="Date",type = "text",isPrKey = true)
+    public OffsetDateTime dateTime;
+
+    public Date date;
+
 
     private boolean highlightProperty=false;
     private boolean activehighlightProperty=false;
@@ -88,5 +96,21 @@ public  class FoodResidus implements Comparable {
 
     public void setWeight(int weight){
         this.wheight=weight;
+    }
+
+    public OffsetDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(OffsetDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

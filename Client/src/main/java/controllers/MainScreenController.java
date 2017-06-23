@@ -22,6 +22,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
+import javafx.util.converter.DateStringConverter;
+import javafx.util.converter.DateTimeStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import items.FoodResidus;
 import items.Whine;
@@ -518,6 +520,11 @@ public class MainScreenController {
                     }
             );
     }
+    public static void columnDate(TableColumn columnDate, ObservableList<FoodResidus> data) {
+        columnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        columnDate.setCellFactory(TextFieldTableCell.forTableColumn(new DateTimeStringConverter()));
+    }
+
     public static void tableViewRightClick(TableView tableView){
         tableView.setRowFactory(new Callback<TableView<FoodResidus>, TableRow<FoodResidus>>() {
             @Override
